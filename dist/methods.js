@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require('mongoose');
+var SCHEMAS = {};
 var CommonMongooseMethods = /** @class */ (function () {
     /**
      *
@@ -45,11 +46,9 @@ var CommonMongooseMethods = /** @class */ (function () {
      * @param options mongoose options
      */
     function CommonMongooseMethods(params, uri, options) {
-        var _this = this;
         if (options === void 0) { options = {}; }
-        this.SCHEMAS = {};
         Object.keys(params).map(function (key) {
-            _this.SCHEMAS[key] = params[key];
+            SCHEMAS[key] = params[key];
         });
         mongoose.connect(uri, options, function (err) {
             if (err) {
@@ -58,187 +57,195 @@ var CommonMongooseMethods = /** @class */ (function () {
             }
         });
     }
-    CommonMongooseMethods.prototype.findAll = function (modelType) {
-        return __awaiter(this, void 0, void 0, function () {
-            var model, item, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        model = this.SCHEMAS[modelType];
-                        if (!this.SCHEMAS[modelType]) {
-                            throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                        }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, model.find().exec()];
-                    case 2:
-                        item = _a.sent();
-                        return [2 /*return*/, item];
-                    case 3:
-                        error_1 = _a.sent();
-                        return [2 /*return*/, error_1];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    CommonMongooseMethods.prototype.update = function (modelType, _id, data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var model, item, error_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        model = this.SCHEMAS[modelType];
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        _id = mongoose.Types.ObjectId(_id);
-                        if (!this.SCHEMAS[modelType]) {
-                            throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                        }
-                        return [4 /*yield*/, model.updateOne({ _id: _id }, data, { multi: true }).exec()];
-                    case 2:
-                        item = _a.sent();
-                        return [2 /*return*/, item];
-                    case 3:
-                        error_2 = _a.sent();
-                        return [2 /*return*/, error_2];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    CommonMongooseMethods.prototype.create = function (modelType, data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var model, item;
-            return __generator(this, function (_a) {
-                model = this.SCHEMAS[modelType];
-                try {
-                    if (!this.SCHEMAS[modelType]) {
-                        throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                    }
-                    item = new model(data).save();
-                    return [2 /*return*/, item];
-                }
-                catch (error) {
-                    return [2 /*return*/, error];
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
-    CommonMongooseMethods.prototype.findByEmail = function (modelType, email, select) {
-        if (select === void 0) { select = ""; }
-        return __awaiter(this, void 0, void 0, function () {
-            var model, item, error_3;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        model = this.SCHEMAS[modelType];
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        if (!this.SCHEMAS[modelType]) {
-                            throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                        }
-                        return [4 /*yield*/, model.find({ email: email }).select(select).exec()];
-                    case 2:
-                        item = _a.sent();
-                        return [2 /*return*/, item];
-                    case 3:
-                        error_3 = _a.sent();
-                        return [2 /*return*/, error_3];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    CommonMongooseMethods.prototype.findByName = function (modelType, name, select) {
-        if (select === void 0) { select = ""; }
-        return __awaiter(this, void 0, void 0, function () {
-            var model, item, error_4;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        model = this.SCHEMAS[modelType];
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        if (!this.SCHEMAS[modelType]) {
-                            throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                        }
-                        return [4 /*yield*/, model.find({ name: name }).select(select).exec()];
-                    case 2:
-                        item = _a.sent();
-                        return [2 /*return*/, item];
-                    case 3:
-                        error_4 = _a.sent();
-                        return [2 /*return*/, error_4];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    CommonMongooseMethods.prototype.remove = function (modelType, _id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var model;
-            return __generator(this, function (_a) {
-                model = this.SCHEMAS[modelType];
-                if (!this.SCHEMAS[modelType]) {
-                    throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                }
-                _id = mongoose.Types.ObjectId(_id);
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        model.deleteOne({ _id: _id }, function (err, obj) {
-                            if (err) {
-                                reject(err);
-                                return;
-                            }
-                            resolve(obj);
-                        });
-                    })];
-            });
-        });
-    };
-    CommonMongooseMethods.prototype.find = function (modelType, options) {
-        return __awaiter(this, void 0, void 0, function () {
-            var model;
-            return __generator(this, function (_a) {
-                model = this.SCHEMAS[modelType];
-                if (!this.SCHEMAS[modelType]) {
-                    throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                }
-                return [2 /*return*/, model.find(options).exec()];
-            });
-        });
-    };
-    CommonMongooseMethods.prototype.findOneById = function (modelType, _id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var model, item, error_5;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        model = this.SCHEMAS[modelType];
-                        if (!this.SCHEMAS[modelType]) {
-                            throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
-                        }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        _id = mongoose.Types.ObjectId(_id);
-                        return [4 /*yield*/, model.findOne({ _id: _id }).exec()];
-                    case 2:
-                        item = _a.sent();
-                        return [2 /*return*/, item];
-                    case 3:
-                        error_5 = _a.sent();
-                        return [2 /*return*/, error_5];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
     return CommonMongooseMethods;
 }());
 exports.CommonMongooseMethods = CommonMongooseMethods;
+function findAll(modelType) {
+    return __awaiter(this, void 0, void 0, function () {
+        var model, item, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    model = SCHEMAS[modelType];
+                    if (!SCHEMAS[modelType]) {
+                        throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+                    }
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, model.find().exec()];
+                case 2:
+                    item = _a.sent();
+                    return [2 /*return*/, item];
+                case 3:
+                    error_1 = _a.sent();
+                    return [2 /*return*/, error_1];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.findAll = findAll;
+function update(modelType, _id, data) {
+    return __awaiter(this, void 0, void 0, function () {
+        var model, item, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    model = SCHEMAS[modelType];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    _id = mongoose.Types.ObjectId(_id);
+                    if (!SCHEMAS[modelType]) {
+                        throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+                    }
+                    return [4 /*yield*/, model.updateOne({ _id: _id }, data, { multi: true }).exec()];
+                case 2:
+                    item = _a.sent();
+                    return [2 /*return*/, item];
+                case 3:
+                    error_2 = _a.sent();
+                    return [2 /*return*/, error_2];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.update = update;
+function create(modelType, data) {
+    return __awaiter(this, void 0, void 0, function () {
+        var model, item;
+        return __generator(this, function (_a) {
+            model = SCHEMAS[modelType];
+            try {
+                if (!SCHEMAS[modelType]) {
+                    throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+                }
+                item = new model(data).save();
+                return [2 /*return*/, item];
+            }
+            catch (error) {
+                return [2 /*return*/, error];
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+exports.create = create;
+function findByEmail(modelType, email, select) {
+    if (select === void 0) { select = ""; }
+    return __awaiter(this, void 0, void 0, function () {
+        var model, item, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    model = SCHEMAS[modelType];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    if (!SCHEMAS[modelType]) {
+                        throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+                    }
+                    return [4 /*yield*/, model.find({ email: email }).select(select).exec()];
+                case 2:
+                    item = _a.sent();
+                    return [2 /*return*/, item];
+                case 3:
+                    error_3 = _a.sent();
+                    return [2 /*return*/, error_3];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.findByEmail = findByEmail;
+function findByName(modelType, name, select) {
+    if (select === void 0) { select = ""; }
+    return __awaiter(this, void 0, void 0, function () {
+        var model, item, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    model = SCHEMAS[modelType];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    if (!SCHEMAS[modelType]) {
+                        throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+                    }
+                    return [4 /*yield*/, model.find({ name: name }).select(select).exec()];
+                case 2:
+                    item = _a.sent();
+                    return [2 /*return*/, item];
+                case 3:
+                    error_4 = _a.sent();
+                    return [2 /*return*/, error_4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.findByName = findByName;
+function remove(modelType, _id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var model;
+        return __generator(this, function (_a) {
+            model = SCHEMAS[modelType];
+            if (!SCHEMAS[modelType]) {
+                throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+            }
+            _id = mongoose.Types.ObjectId(_id);
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    model.deleteOne({ _id: _id }, function (err, obj) {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+                        resolve(obj);
+                    });
+                })];
+        });
+    });
+}
+exports.remove = remove;
+function find(modelType, options) {
+    return __awaiter(this, void 0, void 0, function () {
+        var model;
+        return __generator(this, function (_a) {
+            model = SCHEMAS[modelType];
+            if (!SCHEMAS[modelType]) {
+                throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+            }
+            return [2 /*return*/, model.find(options).exec()];
+        });
+    });
+}
+exports.find = find;
+function findOneById(modelType, _id) {
+    return __awaiter(this, void 0, void 0, function () {
+        var model, item, error_5;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    model = SCHEMAS[modelType];
+                    if (!SCHEMAS[modelType]) {
+                        throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+                    }
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    _id = mongoose.Types.ObjectId(_id);
+                    return [4 /*yield*/, model.findOne({ _id: _id }).exec()];
+                case 2:
+                    item = _a.sent();
+                    return [2 /*return*/, item];
+                case 3:
+                    error_5 = _a.sent();
+                    return [2 /*return*/, error_5];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.findOneById = findOneById;

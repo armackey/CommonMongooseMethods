@@ -8,7 +8,7 @@
 
 `import UserSchema from './user.schema.ts;`
 
-`export const cmm = new CommonMongooseMethods({ user: UserSchema }, 'path/to/uri', options);`
+`const cmm = new CommonMongooseMethods({ user: UserSchema }, 'path/to/uri', options);`
 
 ## methods
 `find`
