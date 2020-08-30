@@ -7,11 +7,11 @@ export declare class CommonMongooseMethods {
      */
     constructor(params: any, uri: string, options?: any);
 }
-export declare function findAll(modelType: any): Promise<any>;
-export declare function update(modelType: any, _id: string, data: any): Promise<any>;
-export declare function create(modelType: any, data: any): Promise<any>;
-export declare function findByEmail(modelType: any, email: string, select?: string): Promise<any>;
-export declare function findByName(modelType: any, name: string, select?: string): Promise<any>;
-export declare function remove(modelType: any, _id: string): Promise<any>;
-export declare function find(modelType: any, options?: any): Promise<any>;
-export declare function findOneById(modelType: any, _id: string): Promise<any>;
+export declare function findAll(modelType: string): Promise<any>;
+export declare function update(modelType: string, _id: string, data: any): Promise<any>;
+export declare function create(modelType: string, data: any): Promise<any>;
+export declare function findByEmail(modelType: string, email: string, select?: string): Promise<any>;
+export declare function findByName(modelType: string, name: string, select?: string): Promise<any>;
+export declare function remove(modelType: string, _id: string): Promise<any>;
+export declare function find(modelType: string, options?: any): Promise<any>;
+export declare function findOneById(modelType: string, _id: string): Promise<any>;

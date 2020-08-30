@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.findOneById = exports.find = exports.remove = exports.findByName = exports.findByEmail = exports.create = exports.update = exports.findAll = exports.CommonMongooseMethods = void 0;
 var mongoose = require('mongoose');
 var SCHEMAS = {};
 var CommonMongooseMethods = /** @class */ (function () {
