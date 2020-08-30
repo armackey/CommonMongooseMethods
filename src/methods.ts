@@ -1,19 +1,19 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 export class CommonMongooseMethods {
-  private SCHEMAS = {};
+  private SCHEMAS: any = {};
   /**
    * 
    * @param params object that contains the schema name as the key and the schema as the value { user: User, message: Message }
    * @param uri string that points to database
    * @param options mongoose options
    */
-  constructor(params: object, uri: string, options: any = {}) {
+  constructor(params: any, uri: string, options: any = {}) {
     Object.keys(params).map(key => {
       this.SCHEMAS[key] = params[key];
     });
 
-    mongoose.connect(uri, options, (err) => {
+    mongoose.connect(uri, options, (err: any) => {
       if (err) {
         console.log(err);
         return;
@@ -35,7 +35,7 @@ export class CommonMongooseMethods {
     }
   }
   
-  async update(modelType: any, _id: string, data): Promise<any> {
+  async update(modelType: any, _id: string, data: any): Promise<any> {
     const model = this.SCHEMAS[modelType];
   
     try {
@@ -52,7 +52,7 @@ export class CommonMongooseMethods {
     }
   }
   
-  async create(modelType: any, data): Promise<any> {
+  async create(modelType: any, data: any): Promise<any> {
     const model = this.SCHEMAS[modelType];
     
     try {
@@ -105,7 +105,7 @@ export class CommonMongooseMethods {
     _id = mongoose.Types.ObjectId(_id) as any;
   
     return new Promise((resolve, reject) => {
-      model.deleteOne({ _id }, (err, obj) => {
+      model.deleteOne({ _id }, (err: any, obj: any) => {
         if (err) {
           reject(err);
           return;
@@ -115,7 +115,7 @@ export class CommonMongooseMethods {
     });
   }
   
-  async find(modelType: any, options?): Promise<any> {
+  async find(modelType: any, options?: any): Promise<any> {
     const model = this.SCHEMAS[modelType];
   
     if (!this.SCHEMAS[modelType]) { throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods'); }
