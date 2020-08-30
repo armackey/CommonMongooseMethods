@@ -2,12 +2,6 @@ import mongoose from 'mongoose';
 
 const SCHEMAS = {};
 
-interface MongooseOptions {
-  useNewUrlParser: boolean,
-  useUnifiedTopology: boolean,
-  useCreateIndex: boolean
-}
-
 export class CommonMongooseMethods {
   /**
    * 
@@ -15,7 +9,7 @@ export class CommonMongooseMethods {
    * @param uri string that points to database
    * @param options mongoose options
    */
-  constructor(params: object, uri: string, options?: MongooseOptions) {
+  constructor(params: object, uri: string, options: any = {}) {
     Object.keys(params).map(key => {
       SCHEMAS[key] = params[key];
     });

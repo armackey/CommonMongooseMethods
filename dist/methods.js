@@ -21,7 +21,7 @@ class CommonMongooseMethods {
      * @param uri string that points to database
      * @param options mongoose options
      */
-    constructor(params, uri, options) {
+    constructor(params, uri, options = {}) {
         Object.keys(params).map(key => {
             SCHEMAS[key] = params[key];
         });
