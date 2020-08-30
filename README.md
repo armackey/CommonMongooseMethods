@@ -1,10 +1,14 @@
 # COMMON MONGOOSE METHODS
 
-## methods that are commonly used in all of my projects. perhaps you use these too.
+### methods that are commonly used in all of my projects. 
+
+## How To
+
+### create a single instance and export to needed files.
 
 `import UserSchema from './user.schema.ts;`
 
-`const cmm = new CommonMongooseMethods({ user: UserSchema }, 'path/to/uri', options);`
+`export const cmm = new CommonMongooseMethods({ user: UserSchema }, 'path/to/uri', options);`
 
 ## methods
 `find`
