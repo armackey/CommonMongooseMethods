@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-let SCHEMAS = {} as any;
+const SCHEMAS = {} as any;
 
 export class CommonMongooseMethods {
   /**
@@ -21,6 +20,12 @@ export class CommonMongooseMethods {
       }
     });
   }
+}
+
+export function addToSchemaList(obj: any): void {
+  Object.keys(obj).map(key => {
+    SCHEMAS[key] = obj[key];
+  });
 }
 
 export async function findAll(modelType: string): Promise<any> {
