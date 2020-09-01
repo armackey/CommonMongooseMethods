@@ -7,6 +7,7 @@ export declare class CommonMongooseMethods {
      */
     constructor(params: any, uri: string, options?: any);
 }
+export declare function addToSchemaList(obj: any): void;
 export declare function findAll(modelType: string): Promise<any>;
 export declare function update(modelType: string, _id: string, data: any): Promise<any>;
 export declare function create(modelType: string, data: any): Promise<any>;

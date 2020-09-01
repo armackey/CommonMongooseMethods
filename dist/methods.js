@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findOneById = exports.find = exports.remove = exports.findByName = exports.findByEmail = exports.create = exports.update = exports.findAll = exports.CommonMongooseMethods = void 0;
 var mongoose = require('mongoose');
 var SCHEMAS = {};
 var CommonMongooseMethods = /** @class */ (function () {
@@ -61,6 +60,12 @@ var CommonMongooseMethods = /** @class */ (function () {
     return CommonMongooseMethods;
 }());
 exports.CommonMongooseMethods = CommonMongooseMethods;
+function addToSchemaList(obj) {
+    Object.keys(obj).map(function (key) {
+        SCHEMAS[key] = obj[key];
+    });
+}
+exports.addToSchemaList = addToSchemaList;
 function findAll(modelType) {
     return __awaiter(this, void 0, void 0, function () {
         var model, item, error_1;
