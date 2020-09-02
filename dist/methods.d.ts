@@ -7,6 +7,14 @@ export declare class CommonMongooseMethods {
      */
     constructor(params: any, uri: string, options?: any);
 }
+export interface PopulateOptions {
+    path: string;
+    model?: string;
+    sort?: string;
+    select?: string;
+    limit?: string;
+    skip?: string;
+}
 export declare function addToSchemaList(obj: any): void;
 export declare function findAll(modelType: string): Promise<any>;
 export declare function update(modelType: string, _id: string, data: any): Promise<any>;
@@ -16,3 +24,4 @@ export declare function findByName(modelType: string, name: string, select?: str
 export declare function remove(modelType: string, _id: string): Promise<any>;
 export declare function find(modelType: string, options?: any): Promise<any>;
 export declare function findOneById(modelType: string, _id: string): Promise<any>;
+export declare function populate(modelType: string, _id: string, options: PopulateOptions): Promise<any>;

@@ -22,6 +22,15 @@ export class CommonMongooseMethods {
   }
 }
 
+export interface PopulateOptions {
+  path: string,
+  model?: string,
+  sort?: string,
+  select?: string,
+  limit?: string,
+  skip?: string
+};
+
 export function addToSchemaList(obj: any): void {
   Object.keys(obj).map(key => {
     SCHEMAS[key] = obj[key];
@@ -145,4 +154,29 @@ export async function findOneById(modelType: string, _id: string): Promise<any> 
   } catch (error) {
     return error;
   }
+}
+
+
+export async function populate(modelType: string, _id: string, options: PopulateOptions): Promise<any> {
+  const model = SCHEMAS[modelType];
+
+  if (!SCHEMAS[modelType]) { throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods'); }
+
+  try {
+
+    _id = mongoose.Types.ObjectId(_id) as any;
+
+    const item = await model
+      .find({ _id })
+      .populate()
+      .exec();
+
+    return item;
+
+  } catch (error) {
+    
+    return error;
+
+  }
+
 }

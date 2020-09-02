@@ -60,6 +60,7 @@ var CommonMongooseMethods = /** @class */ (function () {
     return CommonMongooseMethods;
 }());
 exports.CommonMongooseMethods = CommonMongooseMethods;
+;
 function addToSchemaList(obj) {
     Object.keys(obj).map(function (key) {
         SCHEMAS[key] = obj[key];
@@ -255,3 +256,33 @@ function findOneById(modelType, _id) {
     });
 }
 exports.findOneById = findOneById;
+function populate(modelType, _id, options) {
+    return __awaiter(this, void 0, void 0, function () {
+        var model, item, error_6;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    model = SCHEMAS[modelType];
+                    if (!SCHEMAS[modelType]) {
+                        throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods');
+                    }
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    _id = mongoose.Types.ObjectId(_id);
+                    return [4 /*yield*/, model
+                            .find({ _id: _id })
+                            .populate()
+                            .exec()];
+                case 2:
+                    item = _a.sent();
+                    return [2 /*return*/, item];
+                case 3:
+                    error_6 = _a.sent();
+                    return [2 /*return*/, error_6];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.populate = populate;

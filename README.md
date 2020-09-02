@@ -47,3 +47,8 @@
 `findByName`
 
 `remove`
+
+`populate`
+
+### interfaces
+`PopulateOptions`
