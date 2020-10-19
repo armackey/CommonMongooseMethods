@@ -47,14 +47,17 @@ var CommonMongooseMethods = /** @class */ (function () {
      */
     function CommonMongooseMethods(params, uri, options) {
         if (options === void 0) { options = {}; }
-        Object.keys(params).map(function (key) {
-            SCHEMAS[key] = params[key];
-        });
-        mongoose.connect(uri, options, function (err) {
-            if (err) {
-                console.log(err);
-                return;
-            }
+        return new Promise(function (res, rej) {
+            Object.keys(params).map(function (key) {
+                SCHEMAS[key] = params[key];
+            });
+            mongoose.connect(uri, options, function (err) {
+                if (err) {
+                    rej(err);
+                    return;
+                }
+                res();
+            });
         });
     }
     return CommonMongooseMethods;

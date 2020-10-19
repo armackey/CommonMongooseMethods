@@ -9,16 +9,19 @@ export class CommonMongooseMethods {
    * @param options mongoose options
    */
   constructor(params: any, uri: string, options: any = {}) {
-    Object.keys(params).map(key => {
-      SCHEMAS[key] = params[key];
-    });
-
-    mongoose.connect(uri, options, (err: any) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-    });
+    return new Promise((res, rej) => {
+      Object.keys(params).map(key => {
+        SCHEMAS[key] = params[key];
+      });
+  
+      mongoose.connect(uri, options, (err: any) => {
+        if (err) {
+          rej(err);
+          return;
+        }
+        res();
+      });
+    })
   }
 }
 
