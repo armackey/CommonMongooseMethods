@@ -8,12 +8,8 @@ export class CommonMongooseMethods {
    * @param uri string that points to database
    * @param options mongoose options
    */
-  constructor(params: any, uri: string, options: any = {}) {
+  constructor(uri: string, options: any = {}) {
     return new Promise((res, rej) => {
-      Object.keys(params).map(key => {
-        SCHEMAS[key] = params[key];
-      });
-  
       mongoose.connect(uri, options, (err: any) => {
         if (err) {
           rej(err);
@@ -34,13 +30,11 @@ export interface PopulateOptions {
   skip?: string
 };
 
-export function addToSchemaList(obj: any): void {
-  Object.keys(obj).map(key => {
-    SCHEMAS[key] = obj[key];
-  });
+export function addToSchemaList(key: string, value: any): void {
+  SCHEMAS[key] = value;
 }
 
-export async function findAll(modelType: string): Promise<any> {
+export async function findAll<T>(modelType: string): Promise<T> {
   const model = SCHEMAS[modelType];
 
   if (!SCHEMAS[modelType]) { throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods'); }
@@ -54,7 +48,7 @@ export async function findAll(modelType: string): Promise<any> {
   }
 }
 
-export async function update(modelType: string, _id: string, data: any): Promise<any> {
+export async function update<T>(modelType: string, _id: string, data: any): Promise<T> {
   const model = SCHEMAS[modelType];
 
   try {
@@ -71,7 +65,7 @@ export async function update(modelType: string, _id: string, data: any): Promise
   }
 }
 
-export async function create(modelType: string, data: any): Promise<any> {
+export async function create<T>(modelType: string, data: any): Promise<T> {
   const model = SCHEMAS[modelType];
   
   try {
@@ -86,7 +80,7 @@ export async function create(modelType: string, data: any): Promise<any> {
   }
 }
 
-export async function findByEmail(modelType: string, email: string, select: string = ""): Promise<any> {
+export async function findByEmail<T>(modelType: string, email: string, select: string = ""): Promise<T> {
   const model = SCHEMAS[modelType];
 
   try {
@@ -101,7 +95,7 @@ export async function findByEmail(modelType: string, email: string, select: stri
   }
 }
 
-export async function findByName(modelType: string, name: string, select: string = ""): Promise<any> {
+export async function findByName<T>(modelType: string, name: string, select: string = ""): Promise<T> {
   const model = SCHEMAS[modelType];
 
   try {
@@ -116,7 +110,7 @@ export async function findByName(modelType: string, name: string, select: string
   }
 }
 
-export async function remove(modelType: string, _id: string): Promise<any> {
+export async function remove<T>(modelType: string, _id: string): Promise<T> {
   const model = SCHEMAS[modelType];
 
   if (!SCHEMAS[modelType]) { throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods'); }
@@ -134,7 +128,7 @@ export async function remove(modelType: string, _id: string): Promise<any> {
   });
 }
 
-export async function find(modelType: string, options?: any): Promise<any> {
+export async function find<T>(modelType: string, options?: any): Promise<T> {
   const model = SCHEMAS[modelType];
 
   if (!SCHEMAS[modelType]) { throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods'); }
@@ -160,7 +154,7 @@ export async function findOneById(modelType: string, _id: string): Promise<any> 
 }
 
 
-export async function populate(modelType: string, _id: string, options: PopulateOptions): Promise<any> {
+export async function populate<T>(modelType: string, _id: string, options: PopulateOptions): Promise<T> {
   const model = SCHEMAS[modelType];
 
   if (!SCHEMAS[modelType]) { throw new Error('Schema Type not set during instance. Add type in CommonMongooseMethods'); }
