@@ -45,9 +45,12 @@ var CommonMongooseMethods = /** @class */ (function () {
      * @param uri string that points to database
      * @param options mongoose options
      */
-    function CommonMongooseMethods(uri, options) {
+    function CommonMongooseMethods(params, uri, options) {
         if (options === void 0) { options = {}; }
         return new Promise(function (res, rej) {
+            Object.keys(params).map(function (key) {
+                SCHEMAS[key] = params[key];
+            });
             mongoose.connect(uri, options, function (err) {
                 if (err) {
                     rej(err);
@@ -61,8 +64,10 @@ var CommonMongooseMethods = /** @class */ (function () {
 }());
 exports.CommonMongooseMethods = CommonMongooseMethods;
 ;
-function addToSchemaList(key, value) {
-    SCHEMAS[key] = value;
+function addToSchemaList(obj) {
+    Object.keys(obj).map(function (key) {
+        SCHEMAS[key] = obj[key];
+    });
 }
 exports.addToSchemaList = addToSchemaList;
 function findAll(modelType) {

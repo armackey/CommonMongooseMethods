@@ -8,8 +8,12 @@ export class CommonMongooseMethods {
    * @param uri string that points to database
    * @param options mongoose options
    */
-  constructor(uri: string, options: any = {}) {
+  constructor(params: any, uri: string, options: any = {}) {
     return new Promise((res, rej) => {
+      Object.keys(params).map(key => {
+        SCHEMAS[key] = params[key];
+      });
+  
       mongoose.connect(uri, options, (err: any) => {
         if (err) {
           rej(err);
@@ -30,8 +34,10 @@ export interface PopulateOptions {
   skip?: string
 };
 
-export function addToSchemaList(key: string, value: any): void {
-  SCHEMAS[key] = value;
+export function addToSchemaList(obj: any): void {
+  Object.keys(obj).map(key => {
+    SCHEMAS[key] = obj[key];
+  });
 }
 
 export async function findAll<T>(modelType: string): Promise<T> {

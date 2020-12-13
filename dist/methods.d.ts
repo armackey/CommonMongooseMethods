@@ -5,7 +5,7 @@ export declare class CommonMongooseMethods {
      * @param uri string that points to database
      * @param options mongoose options
      */
-    constructor(uri: string, options?: any);
+    constructor(params: any, uri: string, options?: any);
 }
 export interface PopulateOptions {
     path: string;
@@ -15,7 +15,7 @@ export interface PopulateOptions {
     limit?: string;
     skip?: string;
 }
-export declare function addToSchemaList(key: string, value: any): void;
+export declare function addToSchemaList(obj: any): void;
 export declare function findAll<T>(modelType: string): Promise<T>;
 export declare function update<T>(modelType: string, _id: string, data: any): Promise<T>;
 export declare function create<T>(modelType: string, data: any): Promise<T>;
